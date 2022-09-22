@@ -104,7 +104,7 @@ def top_mv():
     for i in range(0,1):
         mv_top_name = mv_top[i][0]  # 取出电影名,后期直接使用
         mv_top_value = mv_top[i][1]  # 取出评分，后期直接使用
-        show=str(mv_top_name) + ":" + str(mv_top_value) + "分"
+        show="《" + str(mv_top_name) + "》" + " 评分：" + str(mv_top_value) + "分"
 
     return show
   
