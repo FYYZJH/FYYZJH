@@ -1,6 +1,5 @@
 from datetime import date, datetime, timedelta
 import math
-import zhdate
 import time
 from wechatpy import WeChatClient
 from wechatpy.client.api import WeChatMessage, WeChatTemplate
@@ -48,8 +47,6 @@ def get_random_color():
 def get_weekday():
     #日期时间
     date=(datetime.now()+timedelta(hours=8)).strftime("%Y-%m-%d %X")
-    #农历日期
-    nongli_date=zhdate.ZhDate.from_datetime(datetime.now()+timedelta(hours=8))
     #星期
     dayOfWeek = (datetime.now()+timedelta(hours=8)).weekday()
     if dayOfWeek==0:
