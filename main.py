@@ -67,7 +67,48 @@ def get_weekday():
         weekd=date+"  星期日\n"
     return weekd
 
+def top_mv():
+    # 1 爬取源
+    url = "https://movie.douban.com/chart"
+    header = {
+        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/90.0.4430.93 Safari/537.36"
+    }
 
+    # 2 发起http请求
+    spond = requests.get(url, headers=header)
+    res_text = spond.text
+    # 3 内容解析
+    soup = BeautifulSoup(res_text, "html.parser")
+    soup1 = soup.find_all(width="75")  # 解析出电影名称
+    # print(soup1[0]['alt'])
+    soup2 = soup.find_all('span', class_="rating_nums")  # 解析出评分
+    # print(soup2[0].text)
+    # 4数据的处理
+
+    """简单处理1，输入数值N，返回排第N的电影名及评分"""
+
+    """处理2，将电影名和评分组成[{电影名：评分},{:}]的形式"""
+    list_name = []  # 将电影名做成一个列表
+    for i in range(10):
+        list_name.append(soup1[i]['alt'])
+
+    list_value = []  # 将评分值做成一个列表
+    for i in range(10):
+        list_value.append(soup2[i].text)
+
+    dict_name_value = dict(zip(list_name, list_value))  # 将两个list转化为字典dict
+
+    mv_top = sorted(dict_name_value.items(), key=lambda kv: (kv[1], kv[0]), reverse=True)  # 字典排序,type==list
+
+
+    for i in range(0,1):
+        mv_top_name = mv_top[i][0]  # 取出电影名,后期直接使用
+        mv_top_value = mv_top[i][1]  # 取出评分，后期直接使用
+        show=str(mv_top_name) + ":" + str(mv_top_value) + "分"
+
+    return show
+  
+ 
 client = WeChatClient(app_id, app_secret)
 
 wm = WeChatMessage(client)
@@ -81,6 +122,6 @@ elif temperature<=20:
 else:
   sid="[温度不高不低，但也要注意及时补水哦]"
   
-data = {"weather":{"value":wea,"color":get_random_color()},"daytime":{"value":get_weekday(),"color":get_random_color()},"sid":{"value":sid,"color":get_random_color()},"temperature":{"value":str(temperature)+"℃","color":get_random_color()},"love_days":{"value":get_count(),"color":get_random_color()},"birthday_left":{"value":get_birthday(),"color":get_random_color()},"words":{"value":get_words(), "color":get_random_color()}}
+data = {"weather":{"value":wea,"color":get_random_color()},"daytime":{"value":get_weekday(),"color":get_random_color()},"sid":{"value":sid,"color":get_random_color()},"temperature":{"value":str(temperature)+"℃","color":get_random_color()},"love_days":{"value":get_count(),"color":get_random_color()},"birthday_left":{"value":get_birthday(),"color":get_random_color()},"words":{"value":get_words(), "color":get_random_color()},"mv":{"value":top_mv(),"color":get_random_color()}}
 res = wm.send_template(user_id, template_id, data)
 print(res)
