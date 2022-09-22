@@ -43,11 +43,34 @@ def get_words():
 def get_random_color():
   return "#%06x" % random.randint(0, 0xFFFFFF)
 
+def get_weekday():
+    #日期时间
+    date=(datetime.now()+timedelta(hours=8)).strftime("%Y-%m-%d %X")
+    #农历日期
+    nongli_date=zhdate.ZhDate.from_datetime(datetime.now()+timedelta(hours=8))
+    #星期
+    dayOfWeek = (datetime.now()+timedelta(hours=8)).weekday()
+    if dayOfWeek==0:
+        weekd=date+"  星期一\n"+str(nongli_date)
+    if dayOfWeek==1:
+        weekd=date+"  星期二\n"+str(nongli_date)
+    if dayOfWeek==2:
+        weekd=date+"  星期三\n"+str(nongli_date)
+    if dayOfWeek==3:
+        weekd=date+"  星期四\n"+str(nongli_date)
+    if dayOfWeek==4:
+        weekd=date+"  星期五\n"+str(nongli_date)
+    if dayOfWeek==5:
+        weekd=date+"  星期六\n"+str(nongli_date)
+    if dayOfWeek==6:
+        weekd=date+"  星期日\n"+str(nongli_date)
+    return weekd
+
 
 client = WeChatClient(app_id, app_secret)
 
 wm = WeChatMessage(client)
 wea, temperature = get_weather()
-data = {"weather":{"value":wea},"temperature":{"value":temperature},"love_days":{"value":get_count()},"birthday_left":{"value":get_birthday()},"words":{"value":get_words(), "color":get_random_color()}}
+data = {"weather":{"value":wea},"daytime":{"value":get_weekday()},"temperature":{"value":temperature},"love_days":{"value":get_count()},"birthday_left":{"value":get_birthday()},"words":{"value":get_words(), "color":get_random_color()}}
 res = wm.send_template(user_id, template_id, data)
 print(res)
