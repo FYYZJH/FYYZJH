@@ -72,13 +72,13 @@ wm = WeChatMessage(client)
 wea, temperature = get_weather(city)
 
 sid=""
-if temperature1>=25:
+if temperature>=25:
   sid="[室外温度较高，注意喝水哦]"
-elif temperature1<=20:
+elif temperature<=20:
   sid="[室外温度过低，记得多穿点衣服保暖]"
 else:
   sid="[温度不高不低，但也要注意及时补水哦]"
   
-data = {"weather":{"value":wea},"daytime":{"value":get_weekday()},"temperature":{"value":temperature},"love_days":{"value":get_count()},"birthday_left":{"value":get_birthday()},"words":{"value":get_words(), "color":get_random_color()}}
+data = {"weather":{"value":wea},"daytime":{"value":get_weekday()},"temperature":{"value":str(temperature)+"℃","love_days":{"value":get_count()},"birthday_left":{"value":get_birthday()},"words":{"value":get_words(), "color":get_random_color()}}
 res = wm.send_template(user_id, template_id, data)
 print(res)
