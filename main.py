@@ -69,7 +69,7 @@ def get_weekday():
 client = WeChatClient(app_id, app_secret)
 
 wm = WeChatMessage(client)
-wea, temperature = get_weather(city)
+wea, temperature = get_weather()
 
 sid=""
 if temperature>=25:
