@@ -50,19 +50,19 @@ def get_weekday():
     #星期
     dayOfWeek = (datetime.now()+timedelta(hours=8)).weekday()
     if dayOfWeek==0:
-        weekd=date+"  星期一\n"+str(nongli_date)
+        weekd=date+"  星期一\n"
     if dayOfWeek==1:
-        weekd=date+"  星期二\n"+str(nongli_date)
+        weekd=date+"  星期二\n"
     if dayOfWeek==2:
-        weekd=date+"  星期三\n"+str(nongli_date)
+        weekd=date+"  星期三\n"
     if dayOfWeek==3:
-        weekd=date+"  星期四\n"+str(nongli_date)
+        weekd=date+"  星期四\n"
     if dayOfWeek==4:
-        weekd=date+"  星期五\n"+str(nongli_date)
+        weekd=date+"  星期五\n"
     if dayOfWeek==5:
-        weekd=date+"  星期六\n"+str(nongli_date)
+        weekd=date+"  星期六\n"
     if dayOfWeek==6:
-        weekd=date+"  星期日\n"+str(nongli_date)
+        weekd=date+"  星期日\n"
     return weekd
 
 
