@@ -5,6 +5,8 @@ from wechatpy import WeChatClient
 from wechatpy.client.api import WeChatMessage, WeChatTemplate
 import requests
 import os
+import configparser
+from bs4 import BeautifulSoup
 import random
 
 today = datetime.now()
